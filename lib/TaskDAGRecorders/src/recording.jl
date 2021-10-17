@@ -35,18 +35,6 @@ mutable struct TaskStat
     TaskStat() = new(0, 0)
 end
 
-function dummy_pre(stat::TaskStat)
-    dummy = TaskStat()
-    dummy.stop = stat.start
-    return dummy
-end
-
-function dummy_post(stat::TaskStat)
-    dummy = TaskStat()
-    dummy.start = stat.stop
-    return dummy
-end
-
 # TODO: Record calling function?
 mutable struct SyncContext <: AbstractContext
     parent::Union{Nothing,AbstractContext}

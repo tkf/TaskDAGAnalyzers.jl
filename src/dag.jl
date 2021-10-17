@@ -1,4 +1,4 @@
-TaskDAGRecorders.dag(ctx::SyncContext = get_sync_context(); kwargs...) =
+TaskDAGAnalyzers.dag(ctx::SyncContext = get_sync_context(); kwargs...) =
     simplify!(DAG(ctx); kwargs...)
 
 abstract type DAG{T} end
@@ -17,6 +17,18 @@ end
 mutable struct SequentialNode{T} <: DAG{T}
     data::T
     continuation::DAG{T}
+end
+
+function dummy_pre(stat::TaskStat)
+    dummy = TaskStat()
+    dummy.stop = stat.start
+    return dummy
+end
+
+function dummy_post(stat::TaskStat)
+    dummy = TaskStat()
+    dummy.start = stat.stop
+    return dummy
 end
 
 DAG{T}(f, ctx::SyncContext) where {T} = DAG{T}(f, ctx, nothing)
