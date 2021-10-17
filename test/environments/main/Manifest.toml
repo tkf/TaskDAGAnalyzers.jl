@@ -57,7 +57,7 @@ uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 
 [[ShowGraphviz]]
-git-tree-sha1 = "98e229f75e915004133df58cf399e60f79b2ad5c"
+git-tree-sha1 = "8c6829893fb9e2ca4b1c6d4426a7e383b7da5136"
 repo-rev = "master"
 repo-url = "https://github.com/tkf/ShowGraphviz.jl.git"
 uuid = "14e20f5a-e304-4f94-b7d9-bca841234ddf"

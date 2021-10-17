@@ -3,12 +3,12 @@ function Base.show(io::IO, ::MIME"text/vnd.graphviz", dag::DAG)
     newid() = idref[] += 1
 
     idmap = IdDict{DAG,Int}()
-    idfor(dag) = get!(newid, idmap, dag)
+    idfor(dag) = _get!(newid, idmap, dag)
 
     seen = IdDict{DAG,Nothing}()
     function isseen(dag)
         yes = Ref(true)
-        get!(seen, dag) do
+        _get!(seen, dag) do
             yes[] = false
             nothing
         end

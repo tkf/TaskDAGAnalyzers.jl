@@ -78,12 +78,7 @@ function simplify!(dag::DAG{DurationNS}; noisefloor::Real = 0.01)
     noisefloor_ns = span(dag) * noisefloor
 
     simplified = IdDict{DAG{DurationNS},DAG{DurationNS}}()
-    function simp!(dag)
-        y = get(simplified, dag, nothing)
-        y === nothing || return y
-        simplified[dag] = y = _simp!(dag)
-        return y
-    end
+    simp!(dag) = _get!(() -> _simp!(dag), simplified, dag)
 
     _simp!(dag::SequentialNode{DurationNS}) =
         if dag.data.value < noisefloor_ns
