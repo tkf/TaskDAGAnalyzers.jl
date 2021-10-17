@@ -135,3 +135,36 @@ function simplify!(dag::DAG{DurationNS}; noisefloor::Real = 0.01)
 
     return simp!(dag)
 end
+
+# Use 1-depth-first ordering?
+function foreachnode(f, dag::DAG)
+    seen = IdDict{DAG,Nothing}()
+    function visit(dag)
+        if !haskey(seen, dag)
+            seen[dag] = nothing
+            _visit(dag)
+        end
+        return
+    end
+
+    function _visit(dag::SequentialNode)
+        f(dag)
+        visit(dag.continuation)
+    end
+
+    function _visit(dag::SpawnNode)
+        f(dag)
+        visit(dag.detach)
+        visit(dag.continuation)
+    end
+
+    function _visit(dag::SyncNode)
+        f(dag)
+        k = dag.continuation
+        if k !== nothing
+            visit(k)
+        end
+    end
+
+    visit(dag)
+end
