@@ -5,7 +5,7 @@ module Internal
 using ..TaskDAGAnalyzers: TaskDAGAnalyzers
 
 using TaskDAGRecorders
-using TaskDAGRecorders.Internal: DAG, SpawnNode, SyncNode, SequentialNode, DurationNS
+using TaskDAGRecorders.Internal: DAG, SpawnNode, SyncNode, SequentialNode, DurationNS, _get!
 
 import ShowGraphviz
 

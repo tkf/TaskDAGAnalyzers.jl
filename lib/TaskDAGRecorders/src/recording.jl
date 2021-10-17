@@ -100,7 +100,7 @@ function TaskDAGRecorders.sample(f)
 end
 
 function push_context()
-    recorder = get!(TaskDAGRecorder, task_local_storage(), RECORDER_KEY)::TaskDAGRecorder
+    recorder = _get!(TaskDAGRecorder, task_local_storage(), RECORDER_KEY)::TaskDAGRecorder
     ctx = new_child!(recorder.current, SyncContext)
     @_debug "-> sync: $(objectid(ctx))"
     recorder.current = ctx
