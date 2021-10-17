@@ -12,6 +12,10 @@ function check_smoke(f)
     dot = ShowGraphviz.DOT(dag)
     src = sprint(show, "text/plain", dot)
     @test occursin("digraph", src)
+    txt = sprint(show, "text/plain", TaskDAGAnalyzers.summary(ctx))
+    @test occursin("work", txt)
+    @test occursin("span", txt)
+    @test occursin("parallelism", txt)
 end
 
 function test_smoke()
