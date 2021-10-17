@@ -1,17 +1,13 @@
-name = "TaskDAGAnalyzers"
-uuid = "849e3927-aa76-4ecb-a639-b4166e142453"
+name = "TaskDAGAnalyzersTests"
+uuid = "a1e3c549-56d2-453a-8203-9849ee68728f"
 authors = ["Takafumi Arakaki <aka.tkf@gmail.com> and contributors"]
 version = "0.1.0-DEV"
 
 [deps]
 ShowGraphviz = "14e20f5a-e304-4f94-b7d9-bca841234ddf"
+TaskDAGAnalyzers = "849e3927-aa76-4ecb-a639-b4166e142453"
 TaskDAGRecorders = "99c81307-7fbc-43d2-97a2-0be18af3842f"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 julia = "1"
-
-[extras]
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-
-[targets]
-test = ["Test"]

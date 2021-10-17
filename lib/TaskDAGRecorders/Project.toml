@@ -1,11 +1,7 @@
-name = "TaskDAGAnalyzers"
-uuid = "849e3927-aa76-4ecb-a639-b4166e142453"
+name = "TaskDAGRecorders"
+uuid = "99c81307-7fbc-43d2-97a2-0be18af3842f"
 authors = ["Takafumi Arakaki <aka.tkf@gmail.com> and contributors"]
 version = "0.1.0-DEV"
-
-[deps]
-ShowGraphviz = "14e20f5a-e304-4f94-b7d9-bca841234ddf"
-TaskDAGRecorders = "99c81307-7fbc-43d2-97a2-0be18af3842f"
 
 [compat]
 julia = "1"

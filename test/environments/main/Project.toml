@@ -1,0 +1,6 @@
+[deps]
+ShowGraphviz = "14e20f5a-e304-4f94-b7d9-bca841234ddf"
+TaskDAGAnalyzers = "849e3927-aa76-4ecb-a639-b4166e142453"
+TaskDAGAnalyzersTests = "a1e3c549-56d2-453a-8203-9849ee68728f"
+TaskDAGRecorders = "99c81307-7fbc-43d2-97a2-0be18af3842f"
+TestFunctionRunner = "792026f5-ac9a-4a19-adcb-47b0ce2deb5d"
