@@ -1,6 +1,10 @@
 baremodule TaskDAGAnalyzers
 
 function dag end
+function span end
+function work end
+function parallelism end
+function summary end
 
 module Internal
 
@@ -13,6 +17,7 @@ import ShowGraphviz
 
 include("dag.jl")
 include("graphviz.jl")
+include("summary.jl")
 
 end  # module Internal
 

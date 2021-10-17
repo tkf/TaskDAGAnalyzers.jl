@@ -60,20 +60,39 @@ struct DurationNS
     value::Int
 end
 
+Base.Real(d::DurationNS) = d.value
+
 duration(stat::TaskStat) = DurationNS(stat.stop - stat.start)
 duration(pre::TaskStat, post::TaskStat) = DurationNS(post.start - pre.stop)
 
 DAG(ctx::SyncContext) = DAG{DurationNS}(duration, ctx)
 
 # TODO: generalize to arbitrary "weight"
-function span(dag::DAG{DurationNS})
+function TaskDAGAnalyzers.work(dag::DAG{DurationNS})
+    w = 0
+    while true
+        if dag === nothing
+            break
+        elseif dag isa SpawnNode
+            w += TaskDAGAnalyzers.work(dag.detach).value
+        elseif dag isa SequentialNode
+            w += dag.data.value
+        else
+            dag::SyncNode
+        end
+        dag = dag.continuation
+    end
+    return DurationNS(w)
+end
+
+function TaskDAGAnalyzers.span(dag::DAG{DurationNS})
     parent = 0
     maxchild = 0
     while true
         if dag === nothing
             break
         elseif dag isa SpawnNode
-            maxchild = max(maxchild, dag.data.value)
+            maxchild = max(maxchild, TaskDAGAnalyzers.span(dag.detach).value)
         elseif dag isa SequentialNode
             parent += dag.data.value
         else
@@ -81,13 +100,13 @@ function span(dag::DAG{DurationNS})
         end
         dag = dag.continuation
     end
-    return max(parent, maxchild)
+    return DurationNS(max(parent, maxchild))
 end
 
 function simplify!(dag::DAG{DurationNS}; noisefloor::Real = 0.01)
     noisefloor == 0 && return dag
     0 ≤ noisefloor ≤ 1 || error("invalid `noisefloor`: ", noisefloor)
-    noisefloor_ns = span(dag) * noisefloor
+    noisefloor_ns = TaskDAGAnalyzers.span(dag).value * noisefloor
 
     simplified = IdDict{DAG{DurationNS},DAG{DurationNS}}()
     simp!(dag) = _get!(() -> _simp!(dag), simplified, dag)
