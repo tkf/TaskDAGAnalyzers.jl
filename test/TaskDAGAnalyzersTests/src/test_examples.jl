@@ -1,13 +1,14 @@
 module TestExamples
 
 import ShowGraphviz
+import TaskDAGAnalyzers
 import TaskDAGRecorders
 using TaskDAGAnalyzers: Examples
 using Test
 
 function check_smoke(f)
     ctx = TaskDAGRecorders.sample(f)
-    dag = TaskDAGRecorders.dag(ctx)    
+    dag = TaskDAGAnalyzers.dag(ctx)    
     dot = ShowGraphviz.DOT(dag)
     src = sprint(show, "text/plain", dot)
     @test occursin("digraph", src)

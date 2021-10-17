@@ -5,7 +5,6 @@ export @sync, Threads
 macro sync end
 macro spawn end
 
-function dag end
 function sample end
 
 module Internal
@@ -15,7 +14,6 @@ using ..TaskDAGRecorders: TaskDAGRecorders
 
 include("utils.jl")
 include("recording.jl")
-include("dag.jl")
 
 end  # module Internal
 

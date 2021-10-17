@@ -1,14 +1,17 @@
 baremodule TaskDAGAnalyzers
 
+function dag end
+
 module Internal
 
 using ..TaskDAGAnalyzers: TaskDAGAnalyzers
 
 using TaskDAGRecorders
-using TaskDAGRecorders.Internal: DAG, SpawnNode, SyncNode, SequentialNode, DurationNS, _get!
+using TaskDAGRecorders.Internal: AnyContext, SyncContext, TaskContext, TaskStat, _get!
 
 import ShowGraphviz
 
+include("dag.jl")
 include("graphviz.jl")
 
 end  # module Internal
