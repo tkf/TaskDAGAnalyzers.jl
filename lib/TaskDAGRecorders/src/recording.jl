@@ -151,6 +151,23 @@ function unsupported_error()
     error("`@spawn` without `@sync` is not supported")
 end
 
+"""
+    TaskDAGRecorders.sample(f) -> context
+    TaskDAGRecorders.sample(f, n::Integer) -> contexts::Vector
+
+Log tasks (span and sync operations) while executing `f`. The code executed in
+`f` must be instrumented by `using TaskDAGRecorders: @sync, Threads`.
+
+The unary method runs `f` once and return a single `context` that records the
+task operations.
+
+The binary method runs `f` repeatedly `n` times and return a vector of contexts
+that record the task operations.
+
+Use `TaskDAGAnalyzers.dag` to convert this into a DAG representation.
+"""
+TaskDAGRecorders.sample
+
 function TaskDAGRecorders.sample(f, n::Integer)
     samples = Vector{SyncContext}(undef, n)
     for i in 1:n
