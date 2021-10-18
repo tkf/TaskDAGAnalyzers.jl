@@ -14,9 +14,12 @@ Ref:
 ## Applicability
 
 TaskDAGAnalyzers.jl can only be used for "strictly" nested parallel program
-(also known as *fork-join parallelism*, *series-parallel DAG*, or simply *nested
-parallelism*). In particular, TaskDAGAnalyzers.jl can be used with programs
-that:
+(also known as
+*[fork-join](https://en.wikipedia.org/wiki/Fork%E2%80%93join_model)
+parallelism*,
+*[series-parallel](https://en.wikipedia.org/wiki/Series%E2%80%93parallel_graph)
+DAG*, or simply *nested parallelism*). In particular, TaskDAGAnalyzers.jl can be
+used with programs that:
 
 * only use `@sync` and `@spawn`, and
 * do not refer to the `Task` object.
