@@ -100,3 +100,28 @@ save("dag.png", dag)
 save("dag.svg", dag)
 save("dag.pdf", dag)
 ```
+
+### Example
+
+`TaskDAGAnalyzers.Examples` contains a couple of examples that can be used
+with `TaskDAGRecorders.sample`:
+
+```julia
+julia> using TaskDAGAnalyzers, TaskDAGRecorders
+
+julia> ctx = TaskDAGRecorders.sample(TaskDAGAnalyzers.Examples.dac);
+
+julia> TaskDAGAnalyzers.summary(ctx)
+TaskDAGAnalyzers.summary:
+work: 44 ms (single-thread run-time T₁)
+span: 11 ms (theoretical fastest run-time Tₒₒ)
+parallelism (work/span): 3.998027805522864
+
+julia> dag = TaskDAGAnalyzers.dag(ctx);
+
+julia> using FileIO
+
+julia> save("dag.png", dag);
+```
+
+![](assets/dag.png)
